@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Dashcode is a popular dashboard template.",
 };
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
+  // return <>{children}</>;
 };
 
 export default Layout;

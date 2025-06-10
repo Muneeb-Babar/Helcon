@@ -7,7 +7,7 @@ export const metadata:Metadata={
 const Layout = ({children}: {children: React.ReactNode}) => {
   return (
     <>
-      {children}
+      {/* {children} */}
     </>
   );
 };
