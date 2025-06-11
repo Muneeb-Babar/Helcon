@@ -33,12 +33,14 @@ const personalInfoSchema = z.object({
   sessiNo: z.string().regex(/^[0-9]{6,15}$/, "SESSI/PESSI No. must be between 6 to 15 digits"),
 });
 
-type FormData = z.infer<typeof personalInfoSchema>;
+export type FormData = z.infer<typeof personalInfoSchema>;
 
 export default function PersonalInformationForm({
   onNext,
+  defaultValues,
 }: {
   onNext: (data: FormData) => void;
+  defaultValues?: Partial<FormData>;
 }) {
   const {
     register,
@@ -46,6 +48,7 @@ export default function PersonalInformationForm({
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(personalInfoSchema),
+    defaultValues,
   });
 
   const onSubmit = (data: FormData) => {
@@ -53,8 +56,8 @@ export default function PersonalInformationForm({
   };
 
   return (
-    <div className="min-h-screen w-full bg-white p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl p-6 sm:p-8">
+    <div className="min-h-screen w-full bg-white px-4 py-6 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl px-4 py-6 sm:px-8">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -102,16 +105,10 @@ export default function PersonalInformationForm({
 
           {/* Buttons */}
           <div className="col-span-full flex flex-col sm:flex-row justify-end gap-4 pt-6">
-            <button
-              type="button"
-              className="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-black rounded-lg"
-            >
+            <button type="button" className="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-black rounded-lg">
               Cancel
             </button>
-            <button
-              type="submit"
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md"
-            >
+            <button type="submit" className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md">
               Continue
             </button>
           </div>
@@ -121,7 +118,6 @@ export default function PersonalInformationForm({
   );
 }
 
-// Input component
 function Input({ name, type = "text", placeholder, register, error, className = "" }: any) {
   return (
     <div className={`w-full ${className}`}>
@@ -136,7 +132,6 @@ function Input({ name, type = "text", placeholder, register, error, className = 
   );
 }
 
-// Select component
 function Select({ name, options, register, error, className = "" }: any) {
   return (
     <div className={`w-full ${className}`}>
@@ -156,7 +151,6 @@ function Select({ name, options, register, error, className = "" }: any) {
   );
 }
 
-// Section title helper
 function SectionTitle({ title }: { title: string }) {
   return <h2 className="col-span-full text-lg font-semibold pt-6">{title}</h2>;
 }

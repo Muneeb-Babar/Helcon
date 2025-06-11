@@ -1,28 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import PersonalInformationForm from "./PersonalInformationForm";
-import NextOfKinForm from "./NextOfKinForm";
+import PersonalInformationForm, { FormData } from "./PersonalInformationForm";
+import NextOfKinForm from "./NextOfKinForm"; // Ensure this exists and accepts defaultValues
 
-type FormData = {
-  personal?: any;
+type GuardFormData = {
+  personal?: FormData;
   nextOfKin?: any;
 };
 
-const steps = [
-  { label: "Personal Information" },
-  { label: "Next of Kin / Emergency Contact" },
-];
-
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState<FormData>({});
+  const [formData, setFormData] = useState<GuardFormData>({});
 
   const goToStep = (step: number) => setCurrentStep(step);
 
-  const updateStepData = (stepKey: keyof FormData, data: any) => {
+  const updateStepData = (stepKey: keyof GuardFormData, data: any) => {
     setFormData((prev) => ({ ...prev, [stepKey]: data }));
   };
+
+  const steps = [
+    { label: "Personal Information" },
+    { label: "Next of Kin / Emergency Contact" },
+  ];
 
   const renderForm = () => {
     switch (currentStep) {
@@ -57,7 +57,6 @@ export default function MultiStepForm() {
 
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row bg-gray-100">
-      {/* Sidebar */}
       <aside className="w-full lg:w-1/5 bg-white shadow-md px-4 py-6 space-y-4">
         <h1 className="text-xl font-bold mb-4">Guards Registration</h1>
         {steps.map((step, index) => (
@@ -75,11 +74,8 @@ export default function MultiStepForm() {
         ))}
       </aside>
 
-      {/* Form Content */}
       <section className="w-full lg:w-4/5 p-0">
-        <div className="bg-white w-full h-full p-4 sm:p-6">
-          {renderForm()}
-        </div>
+        <div className="bg-white w-full h-full p-4 sm:p-6">{renderForm()}</div>
       </section>
     </div>
   );
