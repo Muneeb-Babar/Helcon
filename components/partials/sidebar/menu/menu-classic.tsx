@@ -146,7 +146,7 @@ export function MenuClassic({ }) {
                         ))}
                         {!collapsed && (
                             <li className="w-full grow flex items-end">
-                                <MenuWidget />
+                                {/* <MenuWidget /> */}
                             </li>
                         )}
                     </ul>

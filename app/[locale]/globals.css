@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -303,6 +306,17 @@
 .dashcode-app-calendar .fc-today-button {
   @apply hover:text-primary-foreground;
 }
+
+
+.input-style {
+  @apply w-full px-4 py-2 rounded border border-gray-200 bg-[#f4f6ff] text-sm placeholder:text-gray-400 focus:outline-none;
+}
+
+/* globals.css */
+.input-style {
+  @apply w-full p-2 border border-gray-300 rounded;
+}
+
 
 .dashcode-app-calendar .fc .fc-button-primary:focus {
   box-shadow: none !important;

@@ -100,7 +100,31 @@ export function getMenuList(pathname: string, t: any): Group[] {
     {
       groupLabel: t("apps"),
       id: "app",
+      
       menus: [
+        {
+          id: "Registration",
+          href: "/Registration/Guard",
+          label: t("Registration"),
+          active: pathname.includes("/Registration/Guard"),
+          icon: "heroicons-outline:user",
+          submenus: [
+            {
+              href: "/Registration/Guard",
+              label: t("Guard"),
+              active: pathname.includes("/Registration/Guard"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Registration/Client",
+              label: t("Client"),
+              active: pathname.includes("/Registration/Client"),
+              icon: "",
+              children: [],
+            },
+          ],
+        },
         {
           id: "chat",
           href: "/app/chat",
@@ -1278,6 +1302,29 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
       groupLabel: t("apps"),
       id: "app",
       menus: [
+        {
+          id: "Registration",
+          href: "/Registration/Guard",
+          label: t("Registration"),
+          active: pathname.includes("/Registration/Guard"),
+          icon: "heroicons-outline:map",
+          submenus: [
+            {
+              href: "/Registration/Guard",
+              label: t("Guard"),
+              active: pathname.includes("/Registration/Guard"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Registration/Client",
+              label: t("Client"),
+              active: pathname.includes("/Registration/Client"),
+              icon: "",
+              children: [],
+            },
+          ],
+        },
         {
           id: "app",
           href: "/app/chat",
