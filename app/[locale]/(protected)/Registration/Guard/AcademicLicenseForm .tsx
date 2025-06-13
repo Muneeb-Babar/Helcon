@@ -40,10 +40,19 @@ export default function AcademicLicenseForm({
   };
 
   return (
+    <>
+     {/* Steps */}
+      <div className="w-full mb-6">
+        <div className="h-1 bg-gray-200 rounded-full">
+          <div className="h-1 bg-blue-500 w-[37.5%] rounded-full" />
+        </div>
+        <p className="text-sm text-right mt-1 text-blue-600 font-medium">Step 3 of 8</p>
+      </div>
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mt-6"
     >
+     
       <Select
         name="education"
         label="Last Highest Education"
@@ -113,7 +122,7 @@ export default function AcademicLicenseForm({
           Continue
         </button>
       </div>
-    </form>
+    </form></>
   );
 }
 

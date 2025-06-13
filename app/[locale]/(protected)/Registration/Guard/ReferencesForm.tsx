@@ -52,6 +52,14 @@ export default function ReferencesForm({
   };
 
   return (
+    <>
+    {/* Steps */}
+      <div className="w-full mb-6">
+        <div className="h-1 bg-gray-200 rounded-full">
+          <div className="h-1 bg-blue-500 w-[57.5%] rounded-full" />
+        </div>
+        <p className="text-sm text-right mt-1 text-blue-600 font-medium">Step 5 of 8</p>
+      </div>
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mt-6">
       <GuarantorFields
         title="Guarantor no. 1"
@@ -74,7 +82,7 @@ export default function ReferencesForm({
           Continue
         </button>
       </div>
-    </form>
+    </form></>
   );
 }
 

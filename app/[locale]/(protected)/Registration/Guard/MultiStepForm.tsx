@@ -6,16 +6,18 @@ import NextOfKinForm from "./NextOfKinForm";
 import AcademicLicenseForm from "./AcademicLicenseForm ";
 import ExperienceForm, { ExperienceFormData } from "./ExperienceForm";
 import ReferencesGuarantorsForm, { ReferenceFormData } from "./ReferencesForm";
-import BankAccountForm, { BankAccountFormData } from "./BankAccountForm";
+import BankAccountForm, { BankFormData as BankAccountFormData } from "./BankAccountForm";
+import UploadDocumentsForm, { UploadFormData } from "./UploadDocumentsForm";
 
-
+// Define the shape of all form data steps
 type GuardFormData = {
   personal?: FormData;
   nextOfKin?: any;
   academicLicense?: any;
   experience?: ExperienceFormData;
   references?: ReferenceFormData;
-  bankAccount?: BankAccountFormData; 
+  bankAccount?: BankAccountFormData;
+  uploadDocs?: UploadFormData;
 };
 
 export default function MultiStepForm() {
@@ -34,7 +36,9 @@ export default function MultiStepForm() {
     { label: "Academics & Licenses" },
     { label: "Experience" },
     { label: "References / Guarantors" },
-    { label: "Add Bank Account" }, // ✅ Add step label
+    { label: "Add Bank Account" },
+    { label: "Upload Employee Documents/ Bio-Metric" },
+    { label: "Bio-Metric" },
   ];
 
   const renderForm = () => {
@@ -87,28 +91,46 @@ export default function MultiStepForm() {
           <ReferencesGuarantorsForm
             onNext={(data) => {
               updateStepData("references", data);
-              setCurrentStep(5); // ✅ Proceed to bank account step
+              setCurrentStep(5);
             }}
             onBack={() => setCurrentStep(3)}
             defaultValues={formData.references}
           />
         );
-    case 5:
-  return (
-    <BankAccountForm
-      onNext={(data) => {
-        updateStepData("bankAccount", data);
-        console.log("✅ Final Submission:", {
-          ...formData,
-          bankAccount: data,
-        });
-      }}
-      onBack={() => setCurrentStep(4)}
-      defaultValues={formData.bankAccount}
-    />
-  );
-
-
+      case 5:
+        return (
+          <BankAccountForm
+            onNext={(data) => {
+              updateStepData("bankAccount", data);
+              setCurrentStep(6);
+            }}
+            onBack={() => setCurrentStep(4)}
+            defaultValues={formData.bankAccount}
+          />
+        );
+      case 6:
+        return (
+          <UploadDocumentsForm
+            onNext={(data) => {
+              updateStepData("uploadDocs", data);
+              setCurrentStep(7);
+            }}
+            onBack={() => setCurrentStep(5)}
+            defaultValues={formData.uploadDocs}
+          />
+        );
+      case 7:
+        return (
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-semibold">Bio-Metric Step Coming Soon</h2>
+            <button
+              onClick={() => console.log("✅ Final Submission:", formData)}
+              className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
+            >
+              Submit
+            </button>
+          </div>
+        );
       default:
         return null;
     }

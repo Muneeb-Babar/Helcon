@@ -37,6 +37,13 @@ export default function NextOfKinForm({
 
   return (
     <main className="w-full lg:w-4/5 bg-white p-6">
+      {/* Steps */}
+      <div className="w-full mb-6">
+        <div className="h-1 bg-gray-200 rounded-full">
+          <div className="h-1 bg-blue-500 w-[27.5%] rounded-full" />
+        </div>
+        <p className="text-sm text-right mt-1 text-blue-600 font-medium">Step 2 of 8</p>
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 sm:grid-cols-2 gap-6"

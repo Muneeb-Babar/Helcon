@@ -56,7 +56,15 @@ export default function PersonalInformationForm({
   };
 
   return (
+    
     <div className="min-h-screen w-full bg-white px-4 py-6 sm:px-6 lg:px-8">
+      {/* Steps */}
+      <div className="w-full mb-6">
+        <div className="h-1 bg-gray-200 rounded-full">
+          <div className="h-1 bg-blue-500 w-[17.5%] rounded-full" />
+        </div>
+        <p className="text-sm text-right mt-1 text-blue-600 font-medium">Step 1 of 8</p>
+      </div>
       <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl px-4 py-6 sm:px-8">
         <form
           onSubmit={handleSubmit(onSubmit)}

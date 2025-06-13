@@ -44,6 +44,14 @@ export default function ExperienceForm({
   };
 
   return (
+    <>
+    {/* Steps */}
+      <div className="w-full mb-6">
+        <div className="h-1 bg-gray-200 rounded-full">
+          <div className="h-1 bg-blue-500 w-[47.5%] rounded-full" />
+        </div>
+        <p className="text-sm text-right mt-1 text-blue-600 font-medium">Step 4 of 8</p>
+      </div>
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mt-6"
@@ -153,7 +161,7 @@ export default function ExperienceForm({
           Continue
         </button>
       </div>
-    </form>
+    </form></>
   );
 }
 
@@ -189,6 +197,7 @@ function Input({
 function Select({ name, options, register, error, label }: any) {
   return (
     <div className="w-full">
+      
       {label && (
         <label className="block text-sm font-medium text-gray-700 mb-1">
           {label}
