@@ -6,6 +6,8 @@ import NextOfKinForm from "./NextOfKinForm";
 import AcademicLicenseForm from "./AcademicLicenseForm ";
 import ExperienceForm, { ExperienceFormData } from "./ExperienceForm";
 import ReferencesGuarantorsForm, { ReferenceFormData } from "./ReferencesForm";
+import BankAccountForm, { BankAccountFormData } from "./BankAccountForm";
+
 
 type GuardFormData = {
   personal?: FormData;
@@ -13,6 +15,7 @@ type GuardFormData = {
   academicLicense?: any;
   experience?: ExperienceFormData;
   references?: ReferenceFormData;
+  bankAccount?: BankAccountFormData; 
 };
 
 export default function MultiStepForm() {
@@ -31,6 +34,7 @@ export default function MultiStepForm() {
     { label: "Academics & Licenses" },
     { label: "Experience" },
     { label: "References / Guarantors" },
+    { label: "Add Bank Account" }, // ✅ Add step label
   ];
 
   const renderForm = () => {
@@ -83,17 +87,28 @@ export default function MultiStepForm() {
           <ReferencesGuarantorsForm
             onNext={(data) => {
               updateStepData("references", data);
-              console.log("✅ All form data:", {
-                ...formData,
-                references: data,
-              });
-              // Proceed to next step here if needed
-              // setCurrentStep(5);
+              setCurrentStep(5); // ✅ Proceed to bank account step
             }}
             onBack={() => setCurrentStep(3)}
             defaultValues={formData.references}
           />
         );
+    case 5:
+  return (
+    <BankAccountForm
+      onNext={(data) => {
+        updateStepData("bankAccount", data);
+        console.log("✅ Final Submission:", {
+          ...formData,
+          bankAccount: data,
+        });
+      }}
+      onBack={() => setCurrentStep(4)}
+      defaultValues={formData.bankAccount}
+    />
+  );
+
+
       default:
         return null;
     }
