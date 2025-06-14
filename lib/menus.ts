@@ -123,6 +123,53 @@ export function getMenuList(pathname: string, t: any): Group[] {
               icon: "",
               children: [],
             },
+            {
+              href: "/Registration/Employee",
+              label: t("Employee"),
+              active: pathname.includes("/Registration/Employee"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Registration/Location",
+              label: t("Location"),
+              active: pathname.includes("/Registration/Location"),
+              icon: "",
+              children: [],
+            },
+            
+          ],
+        },
+        //Deployment Menu
+        {
+          id: "Deployment",
+          href: "/Deployment/AssignGuard",
+          label: t("Deployment"),
+          active: pathname.includes("/Deployment/AssignGuard"),
+          icon: "heroicons-outline:view-boards",
+          submenus: [
+            {
+              href: "/Deployment/AssignGuard",
+              label: t("Assign Guard"),
+              active: pathname.includes("/Deployment/AssignGuard"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Deployment/AssignSupervisor",
+              label: t("Assign Supervisor"),
+              active: pathname.includes("/Deployment/AssignSupervisor"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Deployment/LocationAttendance",
+              label: t("Location Attendance"),
+              active: pathname.includes("/Deployment/LocationAttendance"),
+              icon: "",
+              children: [],
+            },
+            
           ],
         },
         {
@@ -1323,6 +1370,52 @@ export function getHorizontalMenuList(pathname: string, t: any): Group[] {
               icon: "",
               children: [],
             },
+            {
+              href: "/Registration/Employee",
+              label: t("Employee"),
+              active: pathname.includes("/Registration/Employee"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Registration/Location",
+              label: t("Location"),
+              active: pathname.includes("/Registration/Location"),
+              icon: "",
+              children: [],
+            },
+          ],
+        },
+        // Deployment Menu
+        {
+          id: "Deployment",
+          href: "/Deployment/AssignGuard",
+          label: t("Deployment"),
+          active: pathname.includes("/Deployment/AssignGuard"),
+          icon: "heroicons-outline:map",
+          submenus: [
+            {
+              href: "/Deployment/AssignGuard",
+              label: t("Assign Guard"),
+              active: pathname.includes("/Deployment/AssignGuard"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Deployment/AssignSupervisor",
+              label: t("Assign Supervisor"),
+              active: pathname.includes("/Deployment/AssignSupervisor"),
+              icon: "",
+              children: [],
+            },
+            {
+              href: "/Deployment/LocationAttendance",
+              label: t("Location Attendance"),
+              active: pathname.includes("/Deployment/LocationAttendance"),
+              icon: "",
+              children: [],
+            },
+            
           ],
         },
         {
