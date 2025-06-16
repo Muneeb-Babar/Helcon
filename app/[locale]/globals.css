@@ -317,6 +317,14 @@
   @apply w-full p-2 border border-gray-300 rounded;
 }
 
+.input {
+  @apply w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300;
+}
+
 
 .dashcode-app-calendar .fc .fc-button-primary:focus {
   box-shadow: none !important;

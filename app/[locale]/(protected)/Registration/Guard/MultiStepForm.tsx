@@ -8,8 +8,9 @@ import ExperienceForm, { ExperienceFormData } from "./ExperienceForm";
 import ReferencesGuarantorsForm, { ReferenceFormData } from "./ReferencesForm";
 import BankAccountForm, { BankFormData as BankAccountFormData } from "./BankAccountForm";
 import UploadDocumentsForm, { UploadFormData } from "./UploadDocumentsForm";
+import BiometricForm, { BiometricData } from "./BiometricForm";
 
-// Define the shape of all form data steps
+
 type GuardFormData = {
   personal?: FormData;
   nextOfKin?: any;
@@ -18,6 +19,7 @@ type GuardFormData = {
   references?: ReferenceFormData;
   bankAccount?: BankAccountFormData;
   uploadDocs?: UploadFormData;
+  biometric?: BiometricData;
 };
 
 export default function MultiStepForm() {
@@ -28,6 +30,20 @@ export default function MultiStepForm() {
 
   const updateStepData = (stepKey: keyof GuardFormData, data: any) => {
     setFormData((prev) => ({ ...prev, [stepKey]: data }));
+  };
+
+  const handleFinalSubmit = (biometricData: BiometricData) => {
+    const finalData = { ...formData, biometric: biometricData };
+
+    console.log("✅ Final Submission:", finalData);
+
+    // TODO: Integrate your backend API call here
+    // Example:
+    // fetch("/api/submit", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(finalData),
+    // });
   };
 
   const steps = [
@@ -121,15 +137,10 @@ export default function MultiStepForm() {
         );
       case 7:
         return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-semibold">Bio-Metric Step Coming Soon</h2>
-            <button
-              onClick={() => console.log("✅ Final Submission:", formData)}
-              className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
-            >
-              Submit
-            </button>
-          </div>
+          <BiometricForm
+            onSubmit={handleFinalSubmit}
+            onBack={() => setCurrentStep(6)}
+          />
         );
       default:
         return null;

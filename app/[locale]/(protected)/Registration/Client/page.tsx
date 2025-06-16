@@ -1,9 +1,10 @@
 import React from 'react'
+import MultiStepClientForm from './MultiStepClientForm'
 
 const page = () => {
   return (
     <div>
-      Client data
+      <MultiStepClientForm/>
     </div>
   )
 }
