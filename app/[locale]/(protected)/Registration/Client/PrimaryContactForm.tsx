@@ -32,7 +32,7 @@ export default function PrimaryContactForm({ onBack, onSubmit, defaultValues }: 
         <p className="text-sm text-right mt-1 text-blue-600 font-medium">Step 2 of 2</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      {/* <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <h2 className="text-xl font-semibold mb-2">Primary Contact</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -69,7 +69,7 @@ export default function PrimaryContactForm({ onBack, onSubmit, defaultValues }: 
             Submit
           </button>
         </div>
-      </form>
+      </form> */}
     </>
   );
 }

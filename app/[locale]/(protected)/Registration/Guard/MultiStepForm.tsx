@@ -10,7 +10,6 @@ import BankAccountForm, { BankFormData as BankAccountFormData } from "./BankAcco
 import UploadDocumentsForm, { UploadFormData } from "./UploadDocumentsForm";
 import BiometricForm, { BiometricData } from "./BiometricForm";
 
-
 type GuardFormData = {
   personal?: FormData;
   nextOfKin?: any;
@@ -34,16 +33,8 @@ export default function MultiStepForm() {
 
   const handleFinalSubmit = (biometricData: BiometricData) => {
     const finalData = { ...formData, biometric: biometricData };
-
     console.log("✅ Final Submission:", finalData);
-
-    // TODO: Integrate your backend API call here
-    // Example:
-    // fetch("/api/submit", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(finalData),
-    // });
+    // Replace with your API call
   };
 
   const steps = [
@@ -53,7 +44,7 @@ export default function MultiStepForm() {
     { label: "Experience" },
     { label: "References / Guarantors" },
     { label: "Add Bank Account" },
-    { label: "Upload Employee Documents/ Bio-Metric" },
+    { label: "Upload Employee Documents" },
     { label: "Bio-Metric" },
   ];
 
@@ -148,9 +139,9 @@ export default function MultiStepForm() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-gray-100">
+    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#f9fafb]">
       {/* Sidebar Navigation */}
-      <aside className="w-full lg:w-1/5 bg-white shadow-md px-4 py-6 space-y-4">
+      <aside className="w-full lg:w-1/4 bg-white shadow-md px-4 py-6 space-y-4">
         <h1 className="text-xl font-bold mb-4">Guards Registration</h1>
         {steps.map((step, index) => (
           <button
@@ -168,8 +159,8 @@ export default function MultiStepForm() {
       </aside>
 
       {/* Form Renderer */}
-      <section className="w-full lg:w-4/5 p-0">
-        <div className="bg-white w-full h-full p-4 sm:p-6">{renderForm()}</div>
+      <section className="w-full lg:w-3/4 p-4 sm:p-6 bg-white shadow-md">
+        {renderForm()}
       </section>
     </div>
   );

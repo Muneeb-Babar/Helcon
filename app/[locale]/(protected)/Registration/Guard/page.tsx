@@ -12,8 +12,8 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 bg-gray-100">
-      <div className="max-w-5xl mx-auto">
+    <div className="">
+      <div className="">
         <h1 className="text-2xl font-semibold mb-4">Personal Information</h1>
         <FormDataProvider>
   <MultiStepForm/>
