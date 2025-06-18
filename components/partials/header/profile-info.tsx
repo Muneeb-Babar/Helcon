@@ -75,21 +75,13 @@ const ProfileInfo = async () => {
                 icon: "heroicons:user",
                 href: "/user-profile"
               },
-              {
-                name: "Billing",
-                icon: "heroicons:megaphone",
-                href: "/dashboard"
-              },
+              
               {
                 name: "Settings",
                 icon: "heroicons:paper-airplane",
                 href: "/dashboard"
               },
-              {
-                name: "Keyboard shortcuts",
-                icon: "heroicons:language",
-                href: "/dashboard"
-              },
+             
             ].map((item, index) => (
               <Link
                 href={item.href}
@@ -105,12 +97,7 @@ const ProfileInfo = async () => {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <Link href="/dashboard" className="cursor-pointer">
-              <DropdownMenuItem className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 cursor-pointer">
-                <Icon icon="heroicons:user-group" className="w-4 h-4" />
-                team
-              </DropdownMenuItem>
-            </Link>
+            
             <DropdownMenuSub>
               <DropdownMenuSubTrigger className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 ">
                 <Icon icon="heroicons:user-plus" className="w-4 h-4" />
@@ -142,12 +129,6 @@ const ProfileInfo = async () => {
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-            <Link href="/dashboard">
-              <DropdownMenuItem className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 cursor-pointer">
-                <Icon icon="heroicons:variable" className="w-4 h-4" />
-                Github
-              </DropdownMenuItem>
-            </Link>
 
             <DropdownMenuSub>
               <DropdownMenuSubTrigger className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 cursor-pointer">
@@ -157,9 +138,6 @@ const ProfileInfo = async () => {
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                   {[
-                    {
-                      name: "portal",
-                    },
                     {
                       name: "slack",
                     },

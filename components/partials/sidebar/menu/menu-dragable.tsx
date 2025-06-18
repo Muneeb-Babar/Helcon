@@ -124,7 +124,6 @@ export function MenuDragAble() {
                     'text-center': collapsed
                 })}>
 
-                    {/* <TeamSwitcher /> */}
                     <SearchBar />
                 </div>
 

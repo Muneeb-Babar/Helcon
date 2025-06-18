@@ -40,15 +40,15 @@ const Notifications = () => {
                         <div className="text-sm text-default-800  font-medium ">
                             Notifications
                         </div>
-                        <div className="text-default-800  text-xs md:text-right">
+                        {/* <div className="text-default-800  text-xs md:text-right">
                             <Link href="/notifications" className="underline">
                                 View all
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
                 </DropdownMenuLabel>
                 <div className="h-[300px] xl:h-[350px]">
-                    <ScrollArea className="h-full">
+                    {/* <ScrollArea className="h-full">
                         {notifications.map((item: Notification, index: number) => (
                             <DropdownMenuItem
                                 key={`inbox-${index}`}
@@ -79,7 +79,7 @@ const Notifications = () => {
 
                             </DropdownMenuItem>
                         ))}
-                    </ScrollArea>
+                    </ScrollArea> */}
                 </div>
 
             </DropdownMenuContent>

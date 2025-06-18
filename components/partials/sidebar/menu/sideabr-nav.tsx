@@ -42,7 +42,7 @@ const SidebarNav = ({ menuList }: { menuList: Group[] }) => {
       <ScrollArea className="[&>div>div[style]]:!block h-full" dir={direction}>
         <div className="px-4 space-y-3 mt-6">
 
-          {/* <TeamSwitcher /> */}
+
           <SearchBar />
         </div>
         <div className='px-4 pt-6  sticky top-0  bg-sidebar z-20'>

@@ -40,15 +40,15 @@ const Messages = () => {
                         <div className="text-sm text-default-800  font-medium ">
                             Messages
                         </div>
-                        <div className="text-default-800  text-xs md:text-right">
+                        {/* <div className="text-default-800  text-xs md:text-right">
                             <Link href="/chats" className="underline">
                                 View all
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
                 </DropdownMenuLabel>
                 <div className="h-[300px] xl:h-[350px]">
-                    <ScrollArea className="h-full">
+                    {/* <ScrollArea className="h-full">
                         {messages?.map((item: Message, index: number) => (
                             <DropdownMenuItem
                                 key={`inbox-${index}`}
@@ -82,7 +82,7 @@ const Messages = () => {
 
                             </DropdownMenuItem>
                         ))}
-                    </ScrollArea>
+                    </ScrollArea> */}
                 </div>
 
             </DropdownMenuContent>
