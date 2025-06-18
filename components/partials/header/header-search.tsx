@@ -56,27 +56,11 @@ const HeaderSearch = () => {
                                         <span>Calendar</span>
                                     </Link>
                                 </CommandItem>
-                                <CommandItem className="aria-selected:bg-transparent p-0 mb-2.5">
-                                    <Link
-                                        href="/dashboard"
-                                        className="flex gap-1 items-center px-2 text-default-500 hover:text-primary "
-                                    >
-                                        <Icon icon="heroicons:chart-bar" />
-                                        <span>Analytics</span>
-                                    </Link>
-                                </CommandItem>
-                                <CommandItem className="aria-selected:bg-transparent p-0 mb-2.5">
-                                    <Link
-                                        href="/ecommerce"
-                                        className="flex gap-1 items-center px-2 text-default-500 hover:text-primary "
-                                    >
-                                        <Icon icon="heroicons:shopping-bag" />
-                                        <span>eCommerce</span>
-                                    </Link>
-                                </CommandItem>
+                                
+                                
                                 <CommandItem className="aria-selected:bg-transparent p-0 ">
                                     <Link
-                                        href="/project"
+                                        href=""
                                         className="flex gap-1 items-center px-2 text-default-500 hover:text-primary "
                                     >
                                         <Icon icon="heroicons:building-library" />
@@ -90,15 +74,7 @@ const HeaderSearch = () => {
                 [&_[cmdk-group-heading]]:uppercase    [&_[cmdk-group-heading]]:tracking-widest
                 "
                             >
-                                <CommandItem className="aria-selected:bg-transparent p-0 mb-2.5">
-                                    <Link
-                                        href="/chat"
-                                        className="flex gap-1 items-center px-2 text-default-500 hover:text-primary "
-                                    >
-                                        <Icon icon="heroicons:chat-bubble-bottom-center" />
-                                        <span>Chat</span>
-                                    </Link>
-                                </CommandItem>
+                                
                                 <CommandItem className="aria-selected:bg-transparent p-0 mb-2.5">
                                     <Link
                                         href="/email"
@@ -108,15 +84,7 @@ const HeaderSearch = () => {
                                         <span>Email</span>
                                     </Link>
                                 </CommandItem>
-                                <CommandItem className="aria-selected:bg-transparent p-0 mb-2.5">
-                                    <Link
-                                        href="/dashboard"
-                                        className="flex gap-1 items-center px-2 text-default-500 hover:text-primary "
-                                    >
-                                        <Icon icon="heroicons:user" />
-                                        <span>Sign In</span>
-                                    </Link>
-                                </CommandItem>
+                                
                                 <CommandItem className="aria-selected:bg-transparent p-0">
                                     <Link
                                         href="/calendar-page"
