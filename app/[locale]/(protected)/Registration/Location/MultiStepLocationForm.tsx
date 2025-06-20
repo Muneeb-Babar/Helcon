@@ -2,65 +2,70 @@
 
 import { useState } from "react";
 import LocationInformationForm, { LocationInfoData } from "./LocationInformationForm";
-import RequestedGuardsForm, { GuardsFormData } from "./RequestedGuardsForm";
-import AccountsFinanceForm, { FinanceFormData } from "./AccountsFinanceForm";
+import RequestedGuardsForm from "./RequestedGuardsForm";
+import AccountsFinanceForm from "./AccountsFinanceForm";
+import { useGuardsStore } from "@/app/Store/guardsStore";
 
 export default function MultiStepLocationForm() {
   const [step, setStep] = useState(0);
-  const [data, setData] = useState<{
-    location?: LocationInfoData;
-    guards?: GuardsFormData;
-    finance?: FinanceFormData;
-  }>({});
+  const [locationData, setLocationData] = useState<LocationInfoData>();
+  const { guards, resetStore } = useGuardsStore();
 
-  const handleLocationSubmit = (formData: LocationInfoData) => {
-    setData((prev) => ({ ...prev, location: formData }));
+  const handleLocationSubmit = (data: LocationInfoData) => {
+    setLocationData(data);
     setStep(1);
   };
 
-  const handleGuardsSubmit = (formData: GuardsFormData) => {
-    setData((prev) => ({ ...prev, guards: formData }));
-    setStep(2);
-  };
+  const handleFinanceSubmit = async (financeData: any) => {
+    if (!locationData) {
+      return alert("Please complete the location step first.");
+    }
 
-  const handleFinanceSubmit = async (formData: FinanceFormData) => {
-    const finalData = { ...data, finance: formData };
-    console.log("✅ Submitting Final Data:", finalData);
+    const payload = { location: locationData, guards, finance: financeData };
 
     try {
       const res = await fetch("/api/onboarding", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalData),
+        body: JSON.stringify(payload),
       });
-
       if (res.ok) {
-        alert("Data submitted successfully!");
+        alert("Submitted successfully!");
         setStep(0);
-        setData({});
+        setLocationData(undefined);
+        resetStore();  // clear both store and persisted data
       } else {
         alert("Submission failed.");
       }
     } catch (err) {
-      console.error("Submission error:", err);
+      console.error(err);
+      alert("Network error.");
     }
   };
 
+  const steps = [
+    { label: "Location Information", component: <LocationInformationForm onNext={handleLocationSubmit} defaultValues={locationData} /> },
+    { label: "Requested No. of Guards", component: <RequestedGuardsForm onBack={() => setStep(0)} onNext={() => setStep(2)} /> },
+    { label: "For Accounts/Finance", component: <AccountsFinanceForm onBack={() => setStep(1)} guards={guards} onSubmit={handleFinanceSubmit} /> },
+  ];
+
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#f9fafb]">
-      <aside className="w-full lg:w-1/4 bg-white shadow-md px-4 py-6 space-y-4">
-        <h1 className="text-xl font-bold mb-4">Location</h1>
-        <button onClick={() => setStep(0)} className={`block w-full text-left px-4 py-4 rounded-lg ${step === 0 ? "bg-yellow-300" : "bg-gray-100"}`}>Location Information</button>
-        <button onClick={() => setStep(1)} className={`block w-full text-left px-4 py-4 rounded-lg ${step === 1 ? "bg-yellow-300" : "bg-gray-100"}`}>Requested No. of Guards</button>
-        <button onClick={() => setStep(2)} className={`block w-full text-left px-4 py-4 rounded-lg ${step === 2 ? "bg-yellow-300" : "bg-gray-100"}`}>For Accounts/Finance</button>
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#eaf0f9]">
+      <aside className="w-full lg:w-1/4 p-4 space-y-4">
+        {steps.map((s, i) => (
+          <button
+            key={i}
+            onClick={() => setStep(i)}
+            className={`block w-full text-left p-4 rounded-lg ${step === i ? "bg-yellow-400" : "bg-gray-300"}`}
+          >
+            {s.label}
+          </button>
+        ))}
       </aside>
 
       <main className="w-full lg:w-3/4 p-6 bg-white shadow-md">
-        {step === 0 && <LocationInformationForm onNext={handleLocationSubmit} defaultValues={data.location} />}
-        {step === 1 && <RequestedGuardsForm onBack={() => setStep(0)} onNext={handleGuardsSubmit} defaultValues={data.guards} />}
-        {step === 2 && <AccountsFinanceForm onBack={() => setStep(1)} onSubmit={handleFinanceSubmit} defaultValues={data.finance} />}
+        {steps[step].component}
       </main>
     </div>
   );
 }
-
