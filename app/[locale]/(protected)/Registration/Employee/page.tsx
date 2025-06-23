@@ -1,9 +1,10 @@
 import React from 'react'
+import MultiStepEmployeeForm from './MultiStepEmployeeForm'
 
 const page = () => {
   return (
     <div>
-      Employee data
+      <MultiStepEmployeeForm/>
     </div>
   )
 }

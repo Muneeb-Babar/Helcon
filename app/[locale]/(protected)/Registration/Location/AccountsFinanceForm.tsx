@@ -138,9 +138,9 @@ function ReadOnlyField({ label, value }: { label: string; value: string | number
   return (
     <div className="w-full">
       <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-      <div className="flex items-center justify-end gap-2 px-3 py-2 rounded-md bg-green-50 border border-green-400 text-green-700 text-sm">
+      <div className="flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-green-50 border border-green-400 text-green-700 text-sm">
         <span className="truncate">{value}</span>
-        <CheckCircle2 size={16} className="text-green-500" />
+        {/* <CheckCircle2 size={16} className="text-green-500" /> */}
       </div>
     </div>
   );
