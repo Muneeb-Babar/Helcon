@@ -1,9 +1,10 @@
 import React from 'react'
+import TagSupervisorWithLocationForm from './AssignSupervisorForm'
 
 const page = () => {
   return (
     <div>
-      Assign Supervisor data
+      <TagSupervisorWithLocationForm/>
     </div>
   )
 }

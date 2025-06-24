@@ -1,9 +1,10 @@
 import React from 'react'
+import TagGuardWithLocationForm from './AssignGuardForm'
 
 const page = () => {
   return (
     <div>
-      Assign Guard data
+      <TagGuardWithLocationForm/>
     </div>
   )
 }
