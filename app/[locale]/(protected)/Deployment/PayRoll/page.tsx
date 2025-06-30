@@ -1,11 +1,11 @@
-import React from 'react'
+"use client";
+import React from "react";
+import LocationPayrollReportTable from "./LocationPayrollReportTable";
 
-const page = () => {
+export default function Page() {
   return (
-    <div>
-      Payrool
+    <div className="p-6 max-w-full">
+      <LocationPayrollReportTable />
     </div>
-  )
+  );
 }
-
-export default page
