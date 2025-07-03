@@ -2,7 +2,7 @@
 
 const Copyright = () => {
     const currentYear = new Date().getFullYear();
-  return <>Copyright {currentYear}, Dashcode All Rights Reserved.</>;
+  return <>Copyright {currentYear}, Helcon System All Rights Reserved.</>;
 };
 
 export default Copyright;
