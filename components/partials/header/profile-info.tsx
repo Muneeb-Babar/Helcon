@@ -1,3 +1,4 @@
+"use client";
 
 import {
   DropdownMenu,
@@ -12,82 +13,67 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "@/components/ui/icon"
-import { signOut, auth } from "@/lib/auth";
+import { Icon } from "@/components/ui/icon";
 import Image from "next/image";
-import { Link } from '@/i18n/routing';
-import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+import React from "react";
 
-const ProfileInfo = async () => {
-  const session = await auth();
-
-
+const ProfileInfo = () => {
+  // ✅ Replace session with local user data (optional: fetch from localStorage or props)
+  const user = {
+    name: "John Doe",
+    email: "johndoe@example.com",
+    image: "/default-avatar.png", // use a placeholder or public user image
+  };
 
   return (
     <div className="md:block hidden">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className=" cursor-pointer">
-          <div className=" flex items-center gap-3  text-default-800 ">
-
-            <Image
-              src={session?.user?.image as string}
-              alt={session?.user?.name?.charAt(0) as string}
+        <DropdownMenuTrigger asChild className="cursor-pointer">
+          <div className="flex items-center gap-3 text-default-800">
+            {/* <Image
+              src={user.image}
+              alt={user.name?.charAt(0) || "U"}
               width={36}
               height={36}
               className="rounded-full"
-            />
-
-            <div className="text-sm font-medium  capitalize lg:block hidden  ">
-              {session?.user?.name}
+            /> */}
+            <div className="text-sm font-medium capitalize lg:block hidden">
+              {user.name}
             </div>
-            <span className="text-base  me-2.5 lg:inline-block hidden">
-              <Icon icon="heroicons-outline:chevron-down"></Icon>
+            <span className="text-base me-2.5 lg:inline-block hidden">
+              <Icon icon="heroicons-outline:chevron-down" />
             </span>
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 p-0" align="end">
           <DropdownMenuLabel className="flex gap-2 items-center mb-1 p-3">
-
             <Image
-              src={session?.user?.image as string}
-              alt={session?.user?.name?.charAt(0) as string}
+              src={user.image}
+              alt={user.name?.charAt(0) || "U"}
               width={36}
               height={36}
               className="rounded-full"
             />
-
             <div>
-              <div className="text-sm font-medium text-default-800 capitalize ">
-                {session?.user?.name}
+              <div className="text-sm font-medium text-default-800 capitalize">
+                {user.name}
               </div>
               <Link
                 href="/dashboard"
                 className="text-xs text-default-600 hover:text-primary"
               >
-                {session?.user?.email}
+                {user.email}
               </Link>
             </div>
           </DropdownMenuLabel>
+
           <DropdownMenuGroup>
             {[
-              {
-                name: "profile",
-                icon: "heroicons:user",
-                href: "/user-profile"
-              },
-              
-              {
-                name: "Settings",
-                icon: "heroicons:paper-airplane",
-                href: "/dashboard"
-              },
-             
+              { name: "Profile", icon: "heroicons:user", href: "/user-profile" },
+              { name: "Settings", icon: "heroicons:paper-airplane", href: "/dashboard" },
             ].map((item, index) => (
-              <Link
-                href={item.href}
-                key={`info-menu-${index}`}
-                className="cursor-pointer"
-              >
+              <Link href={item.href} key={`info-menu-${index}`} className="cursor-pointer">
                 <DropdownMenuItem className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 cursor-pointer">
                   <Icon icon={item.icon} className="w-4 h-4" />
                   {item.name}
@@ -95,34 +81,21 @@ const ProfileInfo = async () => {
               </Link>
             ))}
           </DropdownMenuGroup>
+
           <DropdownMenuSeparator />
+
           <DropdownMenuGroup>
-            
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5 ">
+              <DropdownMenuSubTrigger className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize px-3 py-1.5">
                 <Icon icon="heroicons:user-plus" className="w-4 h-4" />
                 Invite user
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
-                  {[
-                    {
-                      name: "email",
-                    },
-                    {
-                      name: "message",
-                    },
-                    {
-                      name: "facebook",
-                    },
-                  ].map((item, index) => (
-                    <Link
-                      href="/dashboard"
-                      key={`message-sub-${index}`}
-                      className="cursor-pointer"
-                    >
+                  {["email", "message", "facebook"].map((item, index) => (
+                    <Link href="/dashboard" key={`invite-${index}`} className="cursor-pointer">
                       <DropdownMenuItem className="text-sm font-medium text-default-600 capitalize px-3 py-1.5 cursor-pointer">
-                        {item.name}
+                        {item}
                       </DropdownMenuItem>
                     </Link>
                   ))}
@@ -137,17 +110,10 @@ const ProfileInfo = async () => {
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
-                  {[
-                    {
-                      name: "slack",
-                    },
-                    {
-                      name: "whatsapp",
-                    },
-                  ].map((item, index) => (
-                    <Link href="/dashboard" key={`message-sub-${index}`}>
+                  {["slack", "whatsapp"].map((item, index) => (
+                    <Link href="/dashboard" key={`support-${index}`}>
                       <DropdownMenuItem className="text-sm font-medium text-default-600 capitalize px-3 py-1.5 cursor-pointer">
-                        {item.name}
+                        {item}
                       </DropdownMenuItem>
                     </Link>
                   ))}
@@ -155,24 +121,21 @@ const ProfileInfo = async () => {
               </DropdownMenuPortal>
             </DropdownMenuSub>
           </DropdownMenuGroup>
+
           <DropdownMenuSeparator className="mb-0 dark:bg-background" />
-          <DropdownMenuItem
 
-            className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize my-1 px-3 cursor-pointer"
-          >
-
-            <div>
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut();
+          <DropdownMenuItem className="flex items-center gap-2 text-sm font-medium text-default-600 capitalize my-1 px-3 cursor-pointer">
+            <div className="w-full flex items-center gap-2">
+              <Icon icon="heroicons:power" className="w-4 h-4" />
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  window.location.href = "/login";
                 }}
+                className="w-full text-left"
               >
-                <button type="submit" className=" w-full  flex  items-center gap-2" >
-                  <Icon icon="heroicons:power" className="w-4 h-4" />
-                  Log out
-                </button>
-              </form>
+                Log out
+              </button>
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -180,4 +143,5 @@ const ProfileInfo = async () => {
     </div>
   );
 };
+
 export default ProfileInfo;
