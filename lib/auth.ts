@@ -1,54 +1,89 @@
-// import NextAuth from "next-auth";
-// import GitHub from "next-auth/providers/github";
-// import Google from "next-auth/providers/google";
+// lib/auth.ts
+import NextAuth, { NextAuthOptions, Session } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import type { User } from "next-auth";
 
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import { getUserByEmail, type User } from "./data";
+// Extend the Session type to include accessToken
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+  }
+}
 
+// Define the shape of the user returned by your backend
+interface LoginResponse {
+  token: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    // Add other fields if needed
+  };
+}
 
+export const authOptions: NextAuthOptions = {
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
 
-// export const { auth, handlers, signIn, signOut } = NextAuth({
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password,
+            }),
+          });
 
-//   session: {
-//     strategy: "jwt",
-//   },
-//   providers: [
-//     Google,
-//     GitHub,
-//      CredentialsProvider({
-//             credentials: {
-              
-//                 email: {},
-//                 password: {},
-//             },
-//             async authorize(credentials) {
-//                 if (credentials === null) return null;
-                
-//                 try {
-//                     const user = getUserByEmail(credentials?.email as string);
-//                     if (user) {
-//                         const isMatch = user?.password === credentials.password;
+          const data = await res.json();
 
-//                         if (isMatch) {
-//                             return user;
-//                         } else {
-//                             throw new Error("Email or Password is not correct");
-//                         }
-//                     } else {
-//                         throw new Error("User not found");
-//                     }
-//                 } catch (error) {
-//                     throw new Error(error as string);
-//                 }
-//             },
-//         }),
-   
-//   ],
-// });
+          if (!res.ok || !data?.token || !data?.user) {
+            throw new Error((data as { message?: string })?.message || "Invalid login");
+          }
 
+          // Attach token to user object
+          return {
+            ...data.user,
+            token: data.token,
+          } as User & { token: string };
+        } catch (error) {
+          console.error("Authorize error:", error);
+          return null;
+        }
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user && "token" in user) {
+        token.accessToken = (user as any).token;
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = token.user as User;
+      session.accessToken = token.accessToken as string;
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/login",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+};
 
-import NextAuth from "next-auth";
-
-export const { handlers } = NextAuth({
-  providers: [],
-});
+// ✅ App Router-compatible auth handlers (Edge-API format)
+export const { GET, POST } = NextAuth(authOptions);
