@@ -66,22 +66,23 @@ export default function ExperienceForm({
         const token = localStorage.getItem("token");
 
         const res = await axios.post(
-          "http://ec2-34-227-20-11.compute-1.amazonaws.com:5001/guard-category",
-          { categoryName: selectedRank.toLowerCase() },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+  `${process.env.NEXT_PUBLIC_API_URL}/guard-category`,
+  { categoryName: selectedRank.toLowerCase() },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }
+);
+
 
         const categoryId = res.data?.data?.id;
 
         if (categoryId) {
           setValue("guardCategoryId", categoryId);
           localStorage.setItem("guardCategoryId", categoryId);
-          console.log("✅ guardCategoryId stored:", categoryId);
+          // console.log("✅ guardCategoryId stored:", categoryId);
         }
       } catch (err) {
         console.error("❌ Failed to fetch guardCategoryId:", err);

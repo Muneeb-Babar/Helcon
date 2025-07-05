@@ -193,11 +193,12 @@ export default function MultiStepForm() {
         guardCategoryId,
       });
 
-      await axios.post("http://ec2-34-227-20-11.compute-1.amazonaws.com:5001/guards", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/guards`, payload, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 
       Swal.fire({ icon: "success", title: "Success", html: "Guard data submitted successfully!" });
       setData({});
