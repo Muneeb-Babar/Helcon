@@ -29,7 +29,6 @@ const LoginForm = () => {
     setPasswordType((prev) => (prev === "password" ? "text" : "password"));
   };
 
-  // ✅ No default values
   const {
     register,
     handleSubmit,
@@ -43,12 +42,11 @@ const LoginForm = () => {
     },
   });
 
-  // 🔗 Submit form and call login API
   const onSubmit = (data: z.infer<typeof schema>) => {
     startTransition(async () => {
       try {
         const response = await fetch(
-           `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
           {
             method: "POST",
             headers: {
@@ -65,9 +63,15 @@ const LoginForm = () => {
           return;
         }
 
-        // ✅ Save JWT token if received
-        if (result?.token) {
-          localStorage.setItem("token", result.token);
+        // ✅ Correctly store token from result.data.token
+        const token = result?.data?.token;
+
+        if (token) {
+          localStorage.setItem("token", token);
+          console.log("Stored token:", token);
+        } else {
+          toast.error("Token not found in response");
+          return;
         }
 
         toast.success("Successfully logged in");

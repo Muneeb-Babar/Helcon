@@ -39,7 +39,7 @@ export default function PersonalInformationForm({
   onNext,
   defaultValues,
 }: {
-  onNext: (data: FormData) => void;
+  onNext: (data: any) => void;
   defaultValues?: Partial<FormData>;
 }) {
   const {
@@ -52,25 +52,23 @@ export default function PersonalInformationForm({
   });
 
   const onSubmit = (data: FormData) => {
-    onNext(data);
+    onNext(data); // Pass raw values, transformation will be handled in final payload
   };
 
   return (
-    
     <div className="min-h-screen w-full bg-white px-4 py-6 sm:px-6 lg:px-8">
-      {/* Steps */}
       <div className="w-full mb-6">
         <div className="h-1 bg-gray-200 rounded-full">
           <div className="h-1 bg-blue-500 w-[17.5%] rounded-full" />
         </div>
         <p className="text-sm text-right mt-1 text-blue-600 font-medium">Step 1 of 8</p>
       </div>
+
       <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl px-4 py-6 sm:px-8">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {/* Section Titles */}
           <SectionTitle title="Identification & Recruitment" />
           <Input name="mscNo" placeholder="MSC No." register={register} error={errors.mscNo} />
           <Input type="date" name="recruitmentDate" placeholder="Recruitment Date" register={register} error={errors.recruitmentDate} />
@@ -111,7 +109,6 @@ export default function PersonalInformationForm({
           <Input name="eobiNo" placeholder="EOBI Number" register={register} error={errors.eobiNo} />
           <Input name="sessiNo" placeholder="SESSI/PESSI Number" register={register} error={errors.sessiNo} />
 
-          {/* Buttons */}
           <div className="col-span-full flex flex-col sm:flex-row justify-end gap-4 pt-6">
             <button type="button" className="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-black rounded-lg">
               Cancel

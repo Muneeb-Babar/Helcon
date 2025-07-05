@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 const nextOfKinSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-  fatherName: z.string().min(1, "Father name is required"),
-  religionSect: z.string().min(1, "Religion Sect is required"),
-  cnic: z.string().regex(/^[0-9]{13}$/, "CNIC must be exactly 13 digits"),
+  kinName: z.string().min(1, "Full name is required"),
+  kinFatherName: z.string().min(1, "Father name is required"),
+  kinReligion: z.string().min(1, "Religion Sect is required"),
+  kinCNIC: z.string().regex(/^[0-9]{13}$/, "CNIC must be exactly 13 digits"),
 });
 
 type KinFormData = z.infer<typeof nextOfKinSchema>;
@@ -49,32 +49,32 @@ export default function NextOfKinForm({
         className="grid grid-cols-1 sm:grid-cols-2 gap-6"
       >
         <h2 className="text-xl font-semibold col-span-full">
-          Next of Kin/ Emergency Contact
+          Next of Kin / Emergency Contact
         </h2>
 
         <Input
-          name="fullName"
+          name="kinName"
           placeholder="Enter Full Name"
           register={register}
-          error={errors.fullName}
+          error={errors.kinName}
         />
         <Input
-          name="fatherName"
+          name="kinFatherName"
           placeholder="Enter Father Name"
           register={register}
-          error={errors.fatherName}
+          error={errors.kinFatherName}
         />
         <Select
-          name="religionSect"
+          name="kinReligion"
           register={register}
-          error={errors.religionSect}
+          error={errors.kinReligion}
           options={["Sunni", "Shia", "Christian", "Other"]}
         />
         <Input
-          name="cnic"
+          name="kinCNIC"
           placeholder="Enter CNIC No."
           register={register}
-          error={errors.cnic}
+          error={errors.kinCNIC}
         />
 
         {/* Buttons */}
