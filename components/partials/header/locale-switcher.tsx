@@ -49,18 +49,7 @@ export default function LocalSwitcher() {
                         <span className='font-medium text-sm text-default-600 dark:text-default-700'>En</span>
                     </div>
                 </SelectItem>
-                <SelectItem value="ar">
-                    <div className='flex items-center gap-1'>
-                        <Image
-                            src="/images/all-img/flag-2.png"
-                            alt='flag'
-                            width={24}
-                            height={24}
-                            className='w-6 h-6 rounded-full'
-                        />
-                        <span className='font-medium text-sm text-default-600 dark:text-default-700'>Ar</span>
-                    </div>
-                </SelectItem>
+                {/*  */}
             </SelectContent>
         </Select>
 
