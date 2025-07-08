@@ -26,11 +26,11 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
             </div>
             <div className="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
               <Image
-                src="/images/auth/ils1.svg"
+                src="/images/auth/Banner Login Screen.png"
                 alt=""
-                width={300}
-                height={300}
-                className="mb-10 w-full h-full"
+                width={800}
+                height={800}
+                className="mb-10 object-cover mx-auto"
               />
             </div>
           </div>
