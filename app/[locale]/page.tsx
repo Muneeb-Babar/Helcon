@@ -26,7 +26,7 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
             </div>
             <div className="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
               <Image
-                src="/images/auth/Banner Login Screen.png"
+                src="/images/auth/BannerLoginScreen.png"
                 alt=""
                 width={800}
                 height={800}
