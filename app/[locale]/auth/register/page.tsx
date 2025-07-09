@@ -13,7 +13,7 @@ const Register = () => {
             className="lg:block hidden flex-1 overflow-hidden text-[40px] leading-[48px] text-default-600 
  relative z-[1] bg-default-50"
           >
-            <div className="max-w-[520px] pt-20 ps-20">
+            {/* <div className="max-w-[520px] pt-20 ps-20">
               <Link href="/" className="mb-6 inline-block">
                 <Logo />
               </Link>
@@ -24,14 +24,14 @@ const Register = () => {
                   performance
                 </span>
               </h4>
-            </div>
-            <div className="absolute left-0 bottom-[-130px] h-full w-full z-[-1]">
+            </div> */}
+            <div className="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
               <Image
-                src="/images/auth/ils1.svg"
+                src="/images/auth/BannerLoginScreen.png"
                 alt=""
-                width={300}
-                height={300}
-                className="mb-10 w-full h-full"
+                width={800}
+                height={800}
+                className="mb-20 object-cover mx-auto max-w-[600px] w-full bg-transparent"
               />
             </div>
           </div>
@@ -44,9 +44,9 @@ const Register = () => {
                   </Link>
                 </div>
                 <div className="text-center 2xl:mb-10 mb-5">
-                  <h4 className="font-medium">Sign up</h4>
+                  <h1 className="font-medium">Sign up</h1>
                   <div className="text-default-500  text-base">
-                    Create an account to start using Dashcode
+                    Create an account to start using Dashboard
                   </div>
                 </div>
                 <RegForm />
@@ -55,13 +55,13 @@ const Register = () => {
                     Or continue with
                   </div>
                 </div>
-                <div className="max-w-[242px] mx-auto mt-8 w-full">
+                {/* <div className="max-w-[242px] mx-auto mt-8 w-full">
                   <Social locale={""} />
-                </div>
+                </div> */}
                 <div className="max-w-[225px] mx-auto font-normal text-default-500  2xl:mt-12 mt-6 uppercase text-sm">
                   Already registered?
                   <Link
-                    href="/login"
+                    href="/"
                     className="text-default-900  font-medium hover:underline"
                   >
                     Sign In

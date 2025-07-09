@@ -1,4 +1,4 @@
-import { Link } from '@/i18n/routing';
+import { Link } from "@/i18n/routing";
 import LoginForm from "@/components/partials/auth/login-form";
 import Image from "next/image";
 import Social from "@/components/partials/auth/social";
@@ -30,7 +30,7 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
                 alt=""
                 width={800}
                 height={800}
-                className="mb-10 object-cover mx-auto"
+                className="mb-20 object-cover mx-auto max-w-[600px] w-full"
               />
             </div>
           </div>
