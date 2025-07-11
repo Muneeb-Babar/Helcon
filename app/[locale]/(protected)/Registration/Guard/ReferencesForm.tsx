@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import axios from "axios";
 
 // Validation schema
 const referenceSchema = z.object({
@@ -49,19 +50,49 @@ export default function ReferencesForm({
     defaultValues,
   });
 
-  const onSubmit = (data: ReferenceFormData) => {
-    const fixedData: ReferenceFormData = {
-      guarantor1: {
-        ...data.guarantor1,
-        refCnicUpload: data.guarantor1.refCnicUpload?.[0] || undefined,
-      },
-      guarantor2: {
-        ...data.guarantor2,
-        refCnicUpload: data.guarantor2.refCnicUpload?.[0] || undefined,
-      },
-    };
+  const uploadFile = async (file: File): Promise<string> => {
+    const { data } = await axios.post("https://api.guardsos.com/file/url", {
+      fileName: file.name,
+      fileType: file.type,
+    });
 
-    onNext(fixedData);
+    const { url, fileUrl } = data;
+
+    await axios.put(url, file, {
+      headers: {
+        "Content-Type": file.type,
+      },
+    });
+
+    return fileUrl;
+  };
+
+  const onSubmit = async (data: ReferenceFormData) => {
+    try {
+      const file1 = data.guarantor1.refCnicUpload?.[0];
+      const file2 = data.guarantor2.refCnicUpload?.[0];
+
+      const [refCnic1Url, refCnic2Url] = await Promise.all([
+        file1 ? uploadFile(file1) : Promise.resolve(""),
+        file2 ? uploadFile(file2) : Promise.resolve(""),
+      ]);
+
+      const cleanedData: ReferenceFormData = {
+        guarantor1: {
+          ...data.guarantor1,
+          refCnicUpload: refCnic1Url || undefined,
+        },
+        guarantor2: {
+          ...data.guarantor2,
+          refCnicUpload: refCnic2Url || undefined,
+        },
+      };
+
+      onNext(cleanedData);
+    } catch (error) {
+      console.error("Error uploading reference CNICs:", error);
+      alert("File upload failed. Please try again.");
+    }
   };
 
   return (

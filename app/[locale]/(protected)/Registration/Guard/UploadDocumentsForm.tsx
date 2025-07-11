@@ -3,8 +3,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import axios from "axios";
 
-// Schema
+// Zod Schema
 const uploadSchema = z.object({
   picture: z.any().refine((file) => file?.[0] instanceof File, "Picture is required"),
   cnicFront: z.any().refine((file) => file?.[0] instanceof File, "CNIC Front is required"),
@@ -17,11 +18,11 @@ export type UploadFormData = z.infer<typeof uploadSchema>;
 
 interface Props {
   onNext: (data: {
-    picture: File;
-    cnicFront: File;
-    cnicBack: File;
-    licenseFront: File;
-    licenseBack: File;
+    picture: string;
+    cnicFront: string;
+    cnicBack: string;
+    licenseFront: string;
+    licenseBack: string;
   }) => void;
   onBack: () => void;
   defaultValues?: Partial<UploadFormData>;
@@ -38,15 +39,62 @@ export default function UploadDocumentsForm({ onNext, onBack, defaultValues }: P
     defaultValues,
   });
 
-  const onSubmit = (data: UploadFormData) => {
-    const cleanedData = {
-      picture: data.picture[0],
-      cnicFront: data.cnicFront[0],
-      cnicBack: data.cnicBack[0],
-      licenseFront: data.licenseFront[0],
-      licenseBack: data.licenseBack[0],
-    };
-    onNext(cleanedData);
+  const uploadFile = async (file: File): Promise<string> => {
+    // Step 1: Get signed URL
+    const { data } = await axios.post("https://api.guardsos.com/file/url", {
+      fileName: file.name,
+      fileType: file.type,
+    });
+
+    const { url, fileUrl } = data;
+
+    // Step 2: Upload the file to the signed URL
+    await axios.put(url, file, {
+      headers: {
+        "Content-Type": file.type,
+      },
+    });
+
+    return fileUrl;
+  };
+
+  const onSubmit = async (data: UploadFormData) => {
+    try {
+      const files = {
+        picture: data.picture[0],
+        cnicFront: data.cnicFront[0],
+        cnicBack: data.cnicBack[0],
+        licenseFront: data.licenseFront[0],
+        licenseBack: data.licenseBack[0],
+      };
+
+      // Upload all files
+      const [
+        pictureUrl,
+        cnicFrontUrl,
+        cnicBackUrl,
+        licenseFrontUrl,
+        licenseBackUrl,
+      ] = await Promise.all([
+        uploadFile(files.picture),
+        uploadFile(files.cnicFront),
+        uploadFile(files.cnicBack),
+        uploadFile(files.licenseFront),
+        uploadFile(files.licenseBack),
+      ]);
+
+      // Pass uploaded URLs to onNext
+      onNext({
+        picture: pictureUrl,
+        cnicFront: cnicFrontUrl,
+        cnicBack: cnicBackUrl,
+        licenseFront: licenseFrontUrl,
+        licenseBack: licenseBackUrl,
+      });
+    } catch (error) {
+      console.error("File upload failed:", error);
+      alert("File upload failed. Please try again.");
+    }
   };
 
   return (

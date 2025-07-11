@@ -31,17 +31,6 @@ type NextOfKinData = {
   kinCNIC: string;
 };
 
-const requiredSteps: (keyof GuardFormData)[] = [
-  "personal",
-  "nextOfKin",
-  "academicLicense",
-  "experience",
-  "references",
-  "bankAccount",
-  "uploadDocs",
-  "biometric",
-];
-
 type GuardFormData = {
   personal?: PersonalInfoFormData;
   nextOfKin?: NextOfKinData;
@@ -53,6 +42,17 @@ type GuardFormData = {
   biometric?: BiometricData;
   guardCategoryId?: string;
 };
+
+const requiredSteps: (keyof GuardFormData)[] = [
+  "personal",
+  "nextOfKin",
+  "academicLicense",
+  "experience",
+  "references",
+  "bankAccount",
+  "uploadDocs",
+  "biometric",
+];
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(0);
@@ -97,9 +97,7 @@ export default function MultiStepForm() {
       kinReligion: data.nextOfKin?.kinReligion || "",
       kinCNIC: data.nextOfKin?.kinCNIC || "",
 
-      experience: Array.isArray(data.experience)
-        ? data.experience
-        : [],
+      experience: Array.isArray(data.experience) ? data.experience : [],
 
       references: [
         {
@@ -132,19 +130,19 @@ export default function MultiStepForm() {
       },
 
       biometric: {
-        rightThumb: data.biometric?.["Right Thumb"] || "",
-        rightForeFinger: data.biometric?.["Right Fore Finger"] || "",
-        rightMiddleFinger: data.biometric?.["Right Middle Finger"] || "",
-        rightRingFinger: data.biometric?.["Right Ring Finger"] || "",
-        rightLittleFinger: data.biometric?.["Right Little Finger"] || "",
-        rightFourFinger: data.biometric?.["Right Four Fingers"] || "",
+        rightThumb: data.biometric?.rightThumb || "",
+        rightForeFinger: data.biometric?.rightForeFinger || "",
+        rightMiddleFinger: data.biometric?.rightMiddleFinger || "",
+        rightRingFinger: data.biometric?.rightRingFinger || "",
+        rightLittleFinger: data.biometric?.rightLittleFinger || "",
+        rightFourFinger: data.biometric?.rightFourFinger || "",
 
-        leftThumb: data.biometric?.["Left Thumb"] || "",
-        leftForeFinger: data.biometric?.["Left Fore Finger"] || "",
-        leftMiddleFinger: data.biometric?.["Left Middle Finger"] || "",
-        leftRingFinger: data.biometric?.["Left Ring Finger"] || "",
-        leftLittleFinger: data.biometric?.["Left Little Finger"] || "",
-        leftFourFinger: data.biometric?.["Left Four Fingers"] || "",
+        leftThumb: data.biometric?.leftThumb || "",
+        leftForeFinger: data.biometric?.leftForeFinger || "",
+        leftMiddleFinger: data.biometric?.leftMiddleFinger || "",
+        leftRingFinger: data.biometric?.leftRingFinger || "",
+        leftLittleFinger: data.biometric?.leftLittleFinger || "",
+        leftFourFinger: data.biometric?.leftFourFinger || "",
       },
 
       guardCategoryId: data.guardCategoryId,
@@ -194,11 +192,10 @@ export default function MultiStepForm() {
       });
 
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/guards`, payload, {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
-
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       Swal.fire({ icon: "success", title: "Success", html: "Guard data submitted successfully!" });
       setData({});
